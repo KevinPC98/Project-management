@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateProyectInputDto } from './dtos/request/create-proyect-input.dto';
 import { ProyectDto } from './dtos/response/proyect.dto';
 
