@@ -1,7 +1,7 @@
 import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
-export class ProyectDto {
+export class ProjectDto {
   @Expose()
   uuid: string;
 

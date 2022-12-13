@@ -3,7 +3,7 @@ import { Status } from '../../../common/enum';
 import { IsDate, IsEnum } from 'class-validator';
 
 @Exclude()
-export class CreateProyectInputDto {
+export class CreateProjectInputDto {
   readonly name: string;
 
   @IsDate()

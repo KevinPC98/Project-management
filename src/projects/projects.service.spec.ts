@@ -1,20 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service';
-import { ProyectsService } from './proyects.service';
+import { ProjectsService } from './projects.service';
 import { Status } from '../common/enum';
-import { CreateProyectInputDto } from './dtos/request/create-proyect-input.dto';
+import { CreateProjectInputDto } from './dtos/request/create-project-input.dto';
 
-describe('ProyectsService', () => {
-  let service: ProyectsService;
+describe('ProjectsService', () => {
+  let service: ProjectsService;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ProyectsService, PrismaService],
+      providers: [ProjectsService, PrismaService],
     }).compile();
 
     prismaService = module.get<PrismaService>(PrismaService);
-    service = module.get<ProyectsService>(ProyectsService);
+    service = module.get<ProjectsService>(ProjectsService);
   });
 
   it('should be defined', () => {
@@ -28,7 +28,7 @@ describe('ProyectsService', () => {
 
   describe('Create a Product', () => {
     it('should return a product created', async () => {
-      const params: CreateProyectInputDto = {
+      const params: CreateProjectInputDto = {
         name: 'local business',
         startDate: new Date(),
         status: Status.done,
