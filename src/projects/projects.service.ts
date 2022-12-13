@@ -10,7 +10,7 @@ export class ProjectsService {
 
   async create(input: CreateProjectInputDto): Promise<ProjectDto> {
     //input.startDate = new Date();
-    const proyect = await this.prismaService.proyect.create({ data: input });
+    const proyect = await this.prismaService.project.create({ data: input });
     return plainToInstance(ProjectDto, proyect);
   }
   /*
