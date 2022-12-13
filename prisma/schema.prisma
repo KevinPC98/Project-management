@@ -10,32 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Proyect {
+model Project {
   uuid      String   @unique @default(uuid()) @db.Uuid
   name      String
   startDate DateTime @map("created_at")
-  status     String
+  status    String
 
-  techInProyects TechInProyect[]
+  techInProjects TechInProject[]
 
-  @@map("proyect")
+  @@map("projects")
 }
 
 model Tech {
   uuid String @unique @default(uuid()) @db.Uuid
   name String
 
-  techInProyects TechInProyect[]
+  techInProjects TechInProject[]
 
   @@map("techs")
 }
 
-model TechInProyect {
-  uuid        String   @unique @default(uuid()) @db.Uuid
-  proyect     Proyect @relation(fields: [proyectUuid], references: [uuid])
-  proyectUuid String  @map(name: "proyect_uuid")
+model TechInProject {
+  uuid        String  @unique @default(uuid()) @db.Uuid
+  project     Project @relation(fields: [projectUuid], references: [uuid])
+  projectUuid String  @map(name: "project_uuid")
   tech        Tech    @relation(fields: [techUuid], references: [uuid])
   techUuid    String  @map(name: "tech_uuid")
 
-  @@map("tech_in_proyect")
+  @@map("tech_in_projects")
 }
