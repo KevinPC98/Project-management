@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import { CreateProjectInputDto } from './dtos/request/create-project-input.dto';
+import { UpdateProjectInputDto } from './dtos/request/update-project-input';
 import { ProjectDto } from './dtos/response/project.dto';
 import { ProjectsService } from './projects.service';
 
@@ -12,6 +13,14 @@ export class ProjectsController {
     return this.projectsService.create(input);
   }
 
+  @Patch('/update/:uuid')
+  update(
+    @Param('uuid') uuid: string,
+    @Body() updateProjectInputDto: UpdateProjectInputDto,
+  ): Promise<ProjectDto> {
+    return this.projectsService.update(uuid, updateProjectInputDto);
+  }
+
   /*
   @Get()
   findAll() {
@@ -21,11 +30,6 @@ export class ProjectsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.proyectsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProyectDto: UpdateProyectDto) {
-    return this.proyectsService.update(+id, updateProyectDto);
   }
 
   @Delete(':id')
