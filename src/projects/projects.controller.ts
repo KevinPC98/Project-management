@@ -1,15 +1,15 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateProyectInputDto } from './dtos/request/create-proyect-input.dto';
-import { ProyectDto } from './dtos/response/proyect.dto';
-import { ProyectsService } from './proyects.service';
+import { CreateProjectInputDto } from './dtos/request/create-project-input.dto';
+import { ProjectDto } from './dtos/response/project.dto';
+import { ProjectsService } from './projects.service';
 
-@Controller('proyects')
-export class ProyectsController {
-  constructor(private readonly proyectsService: ProyectsService) {}
+@Controller('projects')
+export class ProjectsController {
+  constructor(private readonly projectsService: ProjectsService) {}
 
   @Post('/create')
-  create(@Body() input: CreateProyectInputDto): Promise<ProyectDto> {
-    return this.proyectsService.create(input);
+  create(@Body() input: CreateProjectInputDto): Promise<ProjectDto> {
+    return this.projectsService.create(input);
   }
 
   /*
