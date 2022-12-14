@@ -21,6 +21,14 @@ export class ProjectsController {
     return this.projectsService.update(uuid, updateProjectInputDto);
   }
 
+  @Post('/update/:techUuid/:projectUuid')
+  addTech(
+    @Param('techUuid') techUuid: string,
+    @Param('projectUuid') projectUuid: string,
+  ): Promise<boolean> {
+    return this.projectsService.addTech(techUuid, projectUuid);
+  }
+
   /*
   @Get()
   findAll() {
