@@ -28,6 +28,15 @@ export class ProjectsService {
     return plainToInstance(ProjectDto, proyect);
   }
 
+  async addTech(techUuid: string, projectUuid: string): Promise<boolean> {
+    const techInProject = await this.prismaService.techInProject.create({
+      data: {
+        projectUuid,
+        techUuid,
+      },
+    });
+    return !(techInProject === null);
+  }
   /*
 findAll() {
   return `This action returns all proyects`;
