@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateProjectInputDto } from './dtos/request/create-project-input.dto';
 import { UpdateProjectInputDto } from './dtos/request/update-project-input';
 import { ProjectDto } from './dtos/response/project.dto';
+import { TechDto } from './dtos/response/tech.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -11,21 +12,36 @@ export class ProjectsService {
 
   async create(input: CreateProjectInputDto): Promise<ProjectDto> {
     //input.startDate = new Date();
-    const proyect = await this.prismaService.project.create({ data: input });
-    return plainToInstance(ProjectDto, proyect);
+    const project = await this.prismaService.project.create({ data: input });
+    const techs = await this.getTechs(project.uuid);
+
+    console.log(techs);
+
+    return plainToInstance(ProjectDto, {
+      ...project,
+      techs,
+    });
   }
 
   async update(
     uuid: string,
     input: UpdateProjectInputDto,
   ): Promise<ProjectDto> {
-    const proyect = await this.prismaService.project.update({
+    const project = await this.prismaService.project.update({
       data: input,
       where: {
         uuid,
       },
     });
-    return plainToInstance(ProjectDto, proyect);
+
+    const techs = await this.getTechs(project.uuid);
+
+    console.log(techs);
+
+    return plainToInstance(ProjectDto, {
+      ...project,
+      techs,
+    });
   }
 
   async addTech(techUuid: string, projectUuid: string): Promise<boolean> {
@@ -35,8 +51,24 @@ export class ProjectsService {
         techUuid,
       },
     });
+
     return !(techInProject === null);
   }
+
+  async getTechs(projectUuid: string): Promise<TechDto[]> {
+    const techs = await this.prismaService.tech.findMany({
+      where: {
+        techInProjects: {
+          some: {
+            projectUuid,
+          },
+        },
+      },
+    });
+
+    return plainToInstance(TechDto, techs);
+  }
+
   /*
 findAll() {
   return `This action returns all proyects`;
