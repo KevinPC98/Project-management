@@ -1,4 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
+import { TechDto } from './tech.dto';
 
 @Exclude()
 export class ProjectDto {
@@ -13,4 +14,7 @@ export class ProjectDto {
 
   @Expose()
   status: string;
+
+  @Expose()
+  techs: TechDto[];
 }
