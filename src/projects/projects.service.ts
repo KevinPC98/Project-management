@@ -65,22 +65,37 @@ export class ProjectsService {
         },
       },
     });
-
     return plainToInstance(TechDto, techs);
   }
 
-  /*
-findAll() {
-  return `This action returns all proyects`;
-}
+  async findAll(): Promise<ProjectDto[]> {
+    const projects = await this.prismaService.project.findMany({
+      select: {
+        uuid: true,
+        name: true,
+        startDate: true,
+        status: true,
+        techInProjects: {
+          select: {
+            tech: true,
+          },
+        },
+      },
+    });
 
-findOne(id: number) {
-  return `This action returns a #${id} proyect`;
-}
+    console.log('__________');
+    console.log(projects);
+    console.log('__________');
 
+    const projectsDto: ProjectDto[] = [];
 
-remove(id: number) {
-  return `This action removes a #${id} proyect`;
-}
-*/
+    projects.forEach((p) => {
+      projectsDto.push({
+        ...p,
+        techs: plainToInstance(TechDto, p.techInProjects),
+      });
+    });
+
+    return projectsDto;
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateProjectInputDto } from './dtos/request/create-project-input.dto';
 import { UpdateProjectInputDto } from './dtos/request/update-project-input';
 import { ProjectDto } from './dtos/response/project.dto';
@@ -29,11 +29,11 @@ export class ProjectsController {
     return this.projectsService.addTech(techUuid, projectUuid);
   }
 
-  /*
-  @Get()
+  @Get('my-projects')
   findAll() {
-    return this.proyectsService.findAll();
+    return this.projectsService.findAll();
   }
+  /*
 
   @Get(':id')
   findOne(@Param('id') id: string) {
