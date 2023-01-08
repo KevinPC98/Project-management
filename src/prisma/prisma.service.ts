@@ -14,7 +14,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   }
 
   async clearDatabase() {
-    const tablenames = await this.$queryRaw<
+    /* const tablenames = await this.$queryRaw<
       Array<{ tablename: string }>
     >`SELECT tablename FROM pg_tables WHERE schemaname='public'`;
 
@@ -28,6 +28,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           console.log({ error });
         }
       }
-    }
+    } */
   }
 }
